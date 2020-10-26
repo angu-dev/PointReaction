@@ -5,9 +5,9 @@ using System.Web;
 
 namespace PointReaction.BL
 {
-    public class BL_Main : BL_Base
+    public class BL_Base
     {
-        public BL_Main()
+        public BL_Base()
         {
 
         }
