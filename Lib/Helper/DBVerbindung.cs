@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace PointReaction.Helper
+namespace Lib.Helper
 {
-    public class DBVerbingung
+    public class DBVerbindung
     {
         public static SqlConnection GetDBVerbindung()
         {

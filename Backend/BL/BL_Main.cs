@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace PointReaction.BL
+namespace Backend.BL
 {
     public class BL_Main : BL_Base
     {
         public BL_Main()
+            :base()
         {
 
         }
