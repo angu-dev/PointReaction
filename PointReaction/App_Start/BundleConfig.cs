@@ -12,7 +12,7 @@ namespace PointReaction
             ));
 
             bundles.Add(new StyleBundle("~/bundles/defaultStyles").Include(
-                "~/Content/defaultStyle.css"
+                "~/Content/default.css"
             ));
         }
     }
