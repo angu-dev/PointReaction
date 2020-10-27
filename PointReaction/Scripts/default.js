@@ -20,9 +20,22 @@ function setBackgroundCanvas() {
     }, 62.5)
 
     function resizeBackgroundCanvas() {
-        if (context.canvas.width != window.innerWidth || context.canvas.height != window.innerHeight) {
-            context.canvas.width = window.innerWidth;
-            context.canvas.height = window.innerHeight;
+        let body = $("body");
+        let bHeight = body.height();
+        let bWidth = body.width();
+        let changedSomething = false;
+
+        if (context.canvas.width != bWidth) {
+            context.canvas.width = bWidth;
+            changedSomething = true;
+        }
+
+        if (context.canvas.height != bHeight) {
+            context.canvas.height = bHeight;
+            changedSomething = true;
+        }
+
+        if (changedSomething) {
             getStars();
         }
     }

@@ -1,0 +1,85 @@
+﻿#home-area {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#home-wrapper {
+    width: auto;
+    height: auto;
+    display: grid;
+    grid-template-areas: "a b c" "a b d" "a b e" "f b e" "f g e";
+    grid-gap: 30px;
+}
+
+    #home-wrapper > section {
+        width: 400px;
+    }
+
+    #home-wrapper #user-information-area {
+        grid-area: f;
+        background: green;
+        height: 260px;
+    }
+
+    #home-wrapper #shop-area {
+        grid-area: a;
+        background: yellow;
+        height: 410px;
+    }
+
+    #home-wrapper #game-animation-area {
+        grid-area: b;
+        background: blue;
+        height: 550px;
+    }
+
+    #home-wrapper #game-start-area {
+        grid-area: g;
+        background: purple;
+        height: 130px;
+    }
+
+    #home-wrapper #register-area {
+        grid-area: c;
+        background: aqua;
+        height: 130px;
+    }
+
+    #home-wrapper #login-area {
+        grid-area: d;
+        background: lightblue;
+        height: 130px;
+    }
+
+    #home-wrapper #leaderboard-area {
+        grid-area: e;
+        background: orange;
+        height: 390px;
+    }
+
+@media (max-width: 1300px) {
+    #home-area {
+        padding: 150px 0;
+    }
+
+    #home-wrapper {
+        grid-template-areas: "b c" "b d" "b a" "b a" "g a" "f e" "f e" "h e";
+    }
+
+        #home-wrapper #game-animation-area {
+            height: 580px;
+        }
+
+        #home-wrapper #user-information-area {
+            height: 390px;
+        }
+}
+
+@media (max-width: 900px) {
+    #home-wrapper {
+        grid-template-areas: "c" "d" "b" "b" "b" "b" "g" "a" "a" "a" "f" "f" "e" "e" "e" "h";
+    }
+}
