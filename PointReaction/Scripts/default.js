@@ -1,5 +1,6 @@
 ﻿$(document).ready(() => {
     setBackgroundCanvas();
+    checkUserSettings();
 });
 
 function setBackgroundCanvas() {
@@ -32,35 +33,42 @@ function setBackgroundCanvas() {
         }
 
         function strokeStar(starSettings) {
-            if (starSettings != null) {
-                if (starSettings.PositionX != null &&
-                    starSettings.PositionY != null &&
-                    starSettings.Spikes != null &&
-                    starSettings.OuterRadius != null &&
-                    starSettings.InnerRadius != null &&
-                    starSettings.TransparencyInPercent != null) {
-                    strokeThisStar();
-                }
+            context.save();
+            context.beginPath();
+            context.translate(starSettings.PositionX, starSettings.PositionY);
+            context.fillStyle = starSettings.Color;
+            context.moveTo(0, 0 - starSettings.OuterRadius);
+            
+            if (starSettings.ScaleOptions.Count >= starSettings.ScaleOptions.Distance) {
+                starSettings.ScaleOptions.Type = 1;
+            } else if (starSettings.ScaleOptions.Count <= 0) {
+                starSettings.ScaleOptions.Type = 0;
             }
 
-            function strokeThisStar() {
-                context.save();
-                context.beginPath();
-                context.translate(starSettings.PositionX, starSettings.PositionY);
-                context.fillStyle = "rgba(255,255,255, 0." + starSettings.TransparencyInPercent + ")"
-                context.moveTo(0, 0 - starSettings.OuterRadius);
-
-                for (var i = 0; i < starSettings.Spikes; i++) {
-                    context.rotate(Math.PI /  starSettings.Spikes);
-                    context.lineTo(0, 0 - (starSettings.OuterRadius * starSettings.InnerRadius));
-                    context.rotate(Math.PI / starSettings.Spikes);
-                    context.lineTo(0, 0 - starSettings.OuterRadius);
-                }
-
-                context.closePath();
-                context.fill();
-                context.restore();
+            switch (starSettings.ScaleOptions.Type) {
+                case 0:
+                    starSettings.OuterRadius += starSettings.ScaleOptions.Value;
+                    starSettings.InnerRadius += starSettings.ScaleOptions.Value;
+                    starSettings.ScaleOptions.Count += 1;
+                    break;
+                case 1:
+                default:
+                    starSettings.OuterRadius -= starSettings.ScaleOptions.Value;
+                    starSettings.InnerRadius -= starSettings.ScaleOptions.Value;
+                    starSettings.ScaleOptions.Count -= 1;
+                    break;
             }
+
+            for (var i = 0; i < starSettings.Spikes; i++) {
+                context.rotate(Math.PI /  starSettings.Spikes);
+                context.lineTo(0, 0 - (starSettings.OuterRadius * starSettings.InnerRadius));
+                context.rotate(Math.PI / starSettings.Spikes);
+                context.lineTo(0, 0 - starSettings.OuterRadius);
+            }
+
+            context.closePath();
+            context.fill();
+            context.restore();
         }
     }
 
@@ -85,4 +93,9 @@ function setBackgroundCanvas() {
     function clearBackgroundCanvas() {
         context.clearRect(0, 0, canvas.width, canvas.height);
     }
+}
+
+
+function checkUserSettings() {
+    /* Ajax, welcher mir die User-Einstellungen angibt */
 }

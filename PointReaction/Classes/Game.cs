@@ -17,22 +17,33 @@ namespace PointReaction.Classes
 
             for (int currentValue = 0; currentValue < starsCount; currentValue++)
             {
-                int currentStarPositionX = Generator.GetRandomNumber(0, maximalGameWidth);
-                int currentStarPositionY = Generator.GetRandomNumber(0, maximalGameHeight);
-                int currentStarSpikes = Generator.GetRandomNumber(3, 7);
-                int currentStarOuterRadius = Generator.GetRandomNumber(2, 4);
-                int currentStarInnerRadius = Generator.GetRandomNumber(3, 4);
-                int currentStarTransparencyInPercent = Generator.GetRandomNumber(10, 90);
+                int positionX = Generator.GetRandomNumber(0, maximalGameWidth);
+                int positionY = Generator.GetRandomNumber(0, maximalGameHeight);
+                int spikes = Generator.GetRandomNumber(3, 7);
+                int outerRadius = Generator.GetRandomNumber(2, 4);
+                int innerRadius = Generator.GetRandomNumber(3, 4);
+                string color = "rgba(255,255,240," + Generator.GetRandomNumber(30, 90).ToString() + ")";
+                int type = Generator.GetRandomNumber(0, 2);
+                double value = (double)Generator.GetRandomNumber(0, 2) / 10;
+                int distance = Generator.GetRandomNumber(2, 5);
+                int count = Generator.GetRandomNumber(0, 4);
 
                 stars.Add(new Star()
+                {
+                    PositionX = positionX,
+                    PositionY = positionY,
+                    Spikes = spikes,
+                    OuterRadius = outerRadius,
+                    InnerRadius = innerRadius,
+                    Color = color,
+                    ScaleOptions = new Star.Scale()
                     {
-                        PositionX = currentStarPositionX,
-                        PositionY = currentStarPositionY,
-                        Spikes = currentStarSpikes,
-                        OuterRadius = currentStarOuterRadius,
-                        InnerRadius = currentStarInnerRadius,
-                        TransparencyInPercent = currentStarTransparencyInPercent
-                    });
+                        Type = type,
+                        Value = value,
+                        Distance = distance,
+                        Count = count
+                    }
+                });
             }
 
             return stars;
@@ -46,6 +57,15 @@ namespace PointReaction.Classes
         public int Spikes { get; set; }
         public int OuterRadius { get; set; }
         public int InnerRadius { get; set; }
-        public int TransparencyInPercent { get; set; }
+        public string Color { get; set; }
+        public Scale ScaleOptions { get; set; }
+
+        public class Scale
+        {
+            public int Type { get; set; }
+            public double Value { get; set; }
+            public int Distance { get; set; }
+            public int Count { get; set; }
+        }
     }
 }
