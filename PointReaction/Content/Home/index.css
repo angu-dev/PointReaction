@@ -4,6 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position:relative;
 }
 
 #home-wrapper {
@@ -60,6 +61,18 @@
         height: 390px;
     }
 
+#made-by-area {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: #fff;
+    padding: 7px 5px 5px 10px;
+    border-radius: 10px 0 0 0;
+    border-bottom: 0;
+    border-right: 0;
+}
+
+/* MEDIA */
 @media (max-width: 1300px) {
     #home-area {
         padding: 150px 0;
