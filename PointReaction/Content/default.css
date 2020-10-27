@@ -1,6 +1,7 @@
 ﻿:root {
-    --canvas-background-color-dark: #222;
-    --canvas-background-color-light: #eee;
+    --background: #222;
+    --light-color: #fff;
+    --dark-color: #222;
 }
 
 * {
@@ -8,16 +9,38 @@
     padding: 0;
     font-family: 'Agency FB';
     letter-spacing: 0.5px;
+    color: var(--dark-color);
 }
+
+::selection {
+    color: var(--light-color); 
+    background-color: var(--background);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #333;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #555;
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #444;
+    }
 
 body {
-    min-height:100vh;
-    background-color: var(--canvas-background-color-dark);
+    min-height: 100vh;
+    background-color: var(--background);
 }
 
-body > canvas#background-canvas {
-    width: 100%;
-    background: var(--canvas-background-color-dark);
-    position:absolute;
-    z-index:-1;
-}
+    body > canvas#background-canvas {
+        width: 100%;
+        background: var(--background);
+        position: absolute;
+        z-index: -1;
+    }

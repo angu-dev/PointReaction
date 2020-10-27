@@ -127,6 +127,7 @@
     <Compile Include="Classes\Game.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\VerifyController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -139,12 +140,14 @@
   <ItemGroup>
     <Compile Include="Classes\Generator.cs" />
     <Content Include="Content\default.css" />
+    <Content Include="Content\Home\Images\settings-icon.svg" />
     <Content Include="Content\Home\index.css" />
     <Content Include="Content\Images\favicon.svg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\default.js" />
+    <Content Include="Scripts\Home\index.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
     <Content Include="Services\Game.svc" />
     <Content Include="Web.config" />
@@ -175,6 +178,8 @@
     <Content Include="Views\Game\Index.cshtml" />
     <Content Include="Views\Game\Leaderboard.cshtml" />
     <Content Include="Views\Game\Shop.cshtml" />
+    <Content Include="Views\User\Information.cshtml" />
+    <Content Include="Views\User\Settings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Backend\Backend.csproj">

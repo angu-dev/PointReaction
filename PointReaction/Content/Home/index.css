@@ -33,8 +33,9 @@
 
     #home-wrapper #game-animation-area {
         grid-area: b;
-        background: blue;
+        background: rgba(0,0,0,.2);
         height: 550px;
+        position:relative;
     }
 
     #home-wrapper #game-start-area {
@@ -72,10 +73,30 @@
     border-right: 0;
 }
 
+#settings-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 50px;
+    width: 50px;
+    margin: 20px;
+    background-image: url(Images/settings-icon.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: rotate(0deg);
+    transition: 250ms linear;
+}
+
+    #settings-button:hover {
+        transform: rotate(180deg);
+        transition: 250ms linear;
+    }
+
 /* MEDIA */
 @media (max-width: 1300px) {
     #home-area {
-        padding: 150px 0;
+        padding: 100px 0;
     }
 
     #home-wrapper {
