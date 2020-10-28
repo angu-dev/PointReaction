@@ -14,34 +14,34 @@ namespace PointReaction.Classes
         public static List<Star> GenerateBackgroundStars(int starsCount, int maximalGameWidth, int maximalGameHeight)
         {
             List<Star> stars = new List<Star>();
-
+            
             for (int currentValue = 0; currentValue < starsCount; currentValue++)
             {
-                int positionX = Generator.GetRandomNumber(0, maximalGameWidth);
-                int positionY = Generator.GetRandomNumber(0, maximalGameHeight);
-                int spikes = Generator.GetRandomNumber(3, 7);
-                int outerRadius = Generator.GetRandomNumber(2, 4);
-                int innerRadius = Generator.GetRandomNumber(3, 4);
-                string color = "rgba(255,255,240," + Generator.GetRandomNumber(30, 90).ToString() + ")";
-                int type = Generator.GetRandomNumber(0, 2);
-                double value = (double)Generator.GetRandomNumber(0, 2) / 10;
-                int distance = Generator.GetRandomNumber(2, 5);
-                int count = Generator.GetRandomNumber(0, 4);
-
                 stars.Add(new Star()
                 {
-                    PositionX = positionX,
-                    PositionY = positionY,
-                    Spikes = spikes,
-                    OuterRadius = outerRadius,
-                    InnerRadius = innerRadius,
-                    Color = color,
-                    ScaleOptions = new Star.Scale()
+                    PositionX = Generator.GetRandomNumber(0, maximalGameWidth),
+                    PositionY = Generator.GetRandomNumber(0, maximalGameHeight),
+                    Spikes = Generator.GetRandomNumber(3, 7),
+                    OuterRadius = Generator.GetRandomNumber(2, 4),
+                    InnerRadius = Generator.GetRandomNumber(3, 4),
+                    ScaleOptions = new Scale()
                     {
-                        Type = type,
-                        Value = value,
-                        Distance = distance,
-                        Count = count
+                        Type = Generator.GetRandomNumber(0, 2),
+                        Value = (double)Generator.GetRandomNumber(0, 2) / 10,
+                        Distance = Generator.GetRandomNumber(2, 5),
+                        Count = Generator.GetRandomNumber(0, 4)
+                    },
+                    ColorOptions = new Color()
+                    {
+                        Red = 255,
+                        Blue = 255,
+                        Green = 255,
+                        AlphaPercent = Generator.GetRandomNumber(30, 90),
+                        ColorSettings = new Scale()
+                        {
+                            Type = Generator.GetRandomNumber(0, 2),
+                            Value = Generator.GetRandomNumber(1, 10)
+                        }
                     }
                 });
             }
@@ -57,15 +57,25 @@ namespace PointReaction.Classes
         public int Spikes { get; set; }
         public int OuterRadius { get; set; }
         public int InnerRadius { get; set; }
-        public string Color { get; set; }
         public Scale ScaleOptions { get; set; }
+        public Color ColorOptions { get; set; }
+        
+    }
 
-        public class Scale
-        {
-            public int Type { get; set; }
-            public double Value { get; set; }
-            public int Distance { get; set; }
-            public int Count { get; set; }
-        }
+    public class Color
+    {
+        public int Red { get; set; }
+        public int Blue { get; set; }
+        public int Green { get; set; }
+        public int AlphaPercent { get; set; }
+        public Scale ColorSettings { get; set; }
+    }
+
+    public class Scale
+    {
+        public int Type { get; set; }
+        public double Value { get; set; }
+        public int? Distance { get; set; }
+        public int? Count { get; set; }
     }
 }

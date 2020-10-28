@@ -41,7 +41,9 @@ function setBackgroundCanvas() {
     }
     
     function drawBackgroundCanvas() {
+        let cS = null;
         for (let curStar of stars) {
+            if (curStar == stars[0]) cS = curStar;
             strokeStar(curStar);
         }
 
@@ -49,7 +51,26 @@ function setBackgroundCanvas() {
             context.save();
             context.beginPath();
             context.translate(starSettings.PositionX, starSettings.PositionY);
-            context.fillStyle = starSettings.Color;
+
+            let alphaValue = starSettings.ColorOptions.AlphaPercent;
+
+            if (starSettings.ColorOptions.ColorSettings.Value + starSettings.ColorOptions.AlphaPercent >= 90) {
+                starSettings.ColorOptions.ColorSettings.Type = 1;
+            } else if (starSettings.ColorOptions.ColorSettings.Value + starSettings.ColorOptions.AlphaPercent <= 30) {
+                starSettings.ColorOptions.ColorSettings.Type = 0;
+            }
+
+            switch (starSettings.ColorOptions.ColorSettings.Type) {
+                case 0:
+                    starSettings.ColorOptions.AlphaPercent += starSettings.ColorOptions.ColorSettings.Value;
+                    break;
+                case 1:
+                default:
+                    starSettings.ColorOptions.AlphaPercent -= starSettings.ColorOptions.ColorSettings.Value;
+                    break;
+            }
+           
+            context.fillStyle = "rgba(" + starSettings.ColorOptions.Red + ", " + starSettings.ColorOptions.Blue + ", " + starSettings.ColorOptions.Green + ", 0." + alphaValue + ")";
             context.moveTo(0, 0 - starSettings.OuterRadius);
             
             if (starSettings.ScaleOptions.Count >= starSettings.ScaleOptions.Distance) {
