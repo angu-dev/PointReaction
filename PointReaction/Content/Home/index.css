@@ -17,48 +17,43 @@
 
     #home-wrapper > section {
         width: 400px;
+        background: rgba(0,0,0,.2);
+        color: #fff;
     }
 
     #home-wrapper #user-information-area {
         grid-area: f;
-        background: green;
         height: 260px;
     }
 
     #home-wrapper #shop-area {
         grid-area: a;
-        background: yellow;
         height: 410px;
     }
 
     #home-wrapper #game-animation-area {
         grid-area: b;
-        background: rgba(0,0,0,.2);
         height: 550px;
         position:relative;
     }
 
     #home-wrapper #game-start-area {
         grid-area: g;
-        background: purple;
         height: 130px;
     }
 
     #home-wrapper #register-area {
         grid-area: c;
-        background: aqua;
         height: 130px;
     }
 
     #home-wrapper #login-area {
         grid-area: d;
-        background: lightblue;
         height: 130px;
     }
 
     #home-wrapper #leaderboard-area {
         grid-area: e;
-        background: orange;
         height: 390px;
     }
 
@@ -92,6 +87,10 @@
         transform: rotate(180deg);
         transition: 250ms linear;
     }
+
+#home-wrapper section#game-animation-area canvas#animation-canvas {
+    z-index:-1;
+}
 
 /* MEDIA */
 @media (max-width: 1300px) {

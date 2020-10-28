@@ -48,9 +48,69 @@ namespace PointReaction.Classes
 
             return stars;
         }
+
+        public static List<Dot> GenerateAnimationDots(int dotsCount, int maximalGameWidth, int maximalGameHeight)
+        {
+            List<Dot> dots = new List<Dot>();
+
+            int smallestSize = maximalGameWidth <= maximalGameHeight ? maximalGameWidth : maximalGameHeight;
+
+            for (int currentValue = 0; currentValue < dotsCount; currentValue++)
+            {
+                int radius = Generator.GetRandomNumber(10, smallestSize / 4);
+                int positionX = Generator.GetRandomNumber(radius, maximalGameWidth - radius);
+                int positionY = Generator.GetRandomNumber(radius, maximalGameHeight - radius);
+
+                for (int i = 0; i < dots.Count; i++)
+                {
+                    double distance = GetDistance(positionX, dots[i].PositionX, positionY, dots[i].PositionY);
+                    if (dots[i].Radius + radius > distance || distance <= 0)
+                    {
+                        radius = Generator.GetRandomNumber(10, 100);
+                        positionX = Generator.GetRandomNumber(radius, maximalGameWidth - radius);
+                        positionY = Generator.GetRandomNumber(radius, maximalGameHeight - radius);
+                        i = 0;
+                    }
+                }
+
+                dots.Add(new Dot()
+                {
+                    Radius = radius,
+                    PositionX = positionX,
+                    PositionY = positionY,
+                    ColorOptions = new Color()
+                    {
+                        Red = 255,
+                        Blue = 0,
+                        Green = 0
+                    },
+                    ScaleOptions = new Scale()
+                    {
+                        Count = 0,
+                        Cooldown = Generator.GetRandomNumber(0, 1000)
+                    }
+                });
+            }
+
+            return dots;
+        }
+
+        public static double GetDistance(int x1, int x2, int y1, int y2)
+        {
+            return Math.Sqrt(Math.Pow(y1 - y2, 2) + Math.Pow(x1 - x2, 2));
+        }
     }
 
-    public class Star
+    public struct Dot
+    {
+        public int PositionX { get; set; }
+        public int PositionY { get; set; }
+        public int Radius { get; set; }
+        public Color ColorOptions { get; set; }
+        public Scale ScaleOptions { get; set; }
+    }
+
+    public struct Star
     {
         public int PositionX { get; set; }
         public int PositionY { get; set; }
@@ -59,7 +119,6 @@ namespace PointReaction.Classes
         public int InnerRadius { get; set; }
         public Scale ScaleOptions { get; set; }
         public Color ColorOptions { get; set; }
-        
     }
 
     public class Color
@@ -67,7 +126,7 @@ namespace PointReaction.Classes
         public int Red { get; set; }
         public int Blue { get; set; }
         public int Green { get; set; }
-        public int AlphaPercent { get; set; }
+        public int? AlphaPercent { get; set; }
         public Scale ColorSettings { get; set; }
     }
 
@@ -77,5 +136,6 @@ namespace PointReaction.Classes
         public double Value { get; set; }
         public int? Distance { get; set; }
         public int? Count { get; set; }
+        public int? Cooldown { get; set; }
     }
 }

@@ -31,5 +31,12 @@ namespace PointReaction.Services
         {
             return JsonConvert.SerializeObject(Classes.Game.GenerateBackgroundStars(starsCount, maximalGameWidth, maximalGameHeight));
         }
+
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
+        [OperationContract]
+        public string GenerateAnimationDots(int dotsCount, int maximalGameWidth, int maximalGameHeight)
+        {
+            return JsonConvert.SerializeObject(Classes.Game.GenerateAnimationDots(dotsCount, maximalGameWidth, maximalGameHeight));
+        }
     }
 }

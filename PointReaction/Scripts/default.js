@@ -41,9 +41,7 @@ function setBackgroundCanvas() {
     }
     
     function drawBackgroundCanvas() {
-        let cS = null;
         for (let curStar of stars) {
-            if (curStar == stars[0]) cS = curStar;
             strokeStar(curStar);
         }
 
@@ -70,7 +68,7 @@ function setBackgroundCanvas() {
                     break;
             }
            
-            context.fillStyle = "rgba(" + starSettings.ColorOptions.Red + ", " + starSettings.ColorOptions.Blue + ", " + starSettings.ColorOptions.Green + ", 0." + alphaValue + ")";
+            context.fillStyle = getCorrectRGBA(starSettings.ColorOptions.Red, starSettings.ColorOptions.Blue, starSettings.ColorOptions.Green, alphaValue);
             context.moveTo(0, 0 - starSettings.OuterRadius);
             
             if (starSettings.ScaleOptions.Count >= starSettings.ScaleOptions.Distance) {
@@ -139,5 +137,8 @@ function generateTooltips() {
             placement: "right"
         });
     });
-    console.log("Done")
+}
+
+function getCorrectRGBA(red, blue, green, alphaPercent) {
+    return "rgba(" + red + ", " + blue + ", " + green + (alphaPercent == null ? ", 1" : ", 0." + alphaPercent) +")";
 }

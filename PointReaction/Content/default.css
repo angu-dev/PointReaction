@@ -33,6 +33,12 @@
         background: #444;
     }
 
+div.tooltip.fade > div {
+    color: #fff;
+    font-weight:bold;
+    letter-spacing: 0.5px;
+}
+
 body {
     min-height: 100vh;
     background-color: var(--background);
