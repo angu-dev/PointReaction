@@ -34,8 +34,8 @@ namespace PointReaction.Classes
                     ColorOptions = new Color()
                     {
                         Red = 255,
-                        Blue = 255,
                         Green = 255,
+                        Blue = 255,
                         AlphaPercent = Generator.GetRandomNumber(30, 90),
                         ColorSettings = new Scale()
                         {
@@ -64,12 +64,13 @@ namespace PointReaction.Classes
                 for (int i = 0; i < dots.Count; i++)
                 {
                     double distance = GetDistance(positionX, dots[i].PositionX, positionY, dots[i].PositionY);
-                    if (dots[i].Radius + radius > distance || distance <= 0)
+                    int sumRadius = dots[i].Radius + radius;
+                    if (sumRadius > distance)
                     {
-                        radius = Generator.GetRandomNumber(10, 100);
+                        radius = Generator.GetRandomNumber(10, smallestSize / 4);
                         positionX = Generator.GetRandomNumber(radius, maximalGameWidth - radius);
                         positionY = Generator.GetRandomNumber(radius, maximalGameHeight - radius);
-                        i = 0;
+                        i = -1;
                     }
                 }
 
@@ -80,9 +81,9 @@ namespace PointReaction.Classes
                     PositionY = positionY,
                     ColorOptions = new Color()
                     {
-                        Red = 255,
-                        Blue = 0,
-                        Green = 0
+                        Red = 255 - dots.Count * 2,
+                        Green = dots.Count,
+                        Blue = dots.Count * 2,
                     },
                     ScaleOptions = new Scale()
                     {
@@ -124,8 +125,8 @@ namespace PointReaction.Classes
     public class Color
     {
         public int Red { get; set; }
-        public int Blue { get; set; }
         public int Green { get; set; }
+        public int Blue { get; set; }
         public int? AlphaPercent { get; set; }
         public Scale ColorSettings { get; set; }
     }

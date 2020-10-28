@@ -48,7 +48,7 @@ function generateAnimationCanvas() {
             context.beginPath();
             context.arc(dotSettings.PositionX, dotSettings.PositionY, dotSettings.Radius, 0, 2 * Math.PI);
             context.stroke();
-            context.fillStyle = getCorrectRGBA(dotSettings.ColorOptions.Red, dotSettings.ColorOptions.Blue, dotSettings.ColorOptions.Green);
+            context.fillStyle = getCorrectRGBA(dotSettings.ColorOptions.Red, dotSettings.ColorOptions.Green, dotSettings.ColorOptions.Blue);
             context.fill();
         }
     }
@@ -61,7 +61,7 @@ function generateAnimationCanvas() {
             dataType: "json",
             async: false,
             data: {
-                dotsCount: 100,
+                dotsCount: 50,
                 maximalGameWidth: context.canvas.width,
                 maximalGameHeight: context.canvas.height
             },

@@ -68,7 +68,7 @@ function setBackgroundCanvas() {
                     break;
             }
            
-            context.fillStyle = getCorrectRGBA(starSettings.ColorOptions.Red, starSettings.ColorOptions.Blue, starSettings.ColorOptions.Green, alphaValue);
+            context.fillStyle = getCorrectRGBA(starSettings.ColorOptions.Red, starSettings.ColorOptions.Green, starSettings.ColorOptions.Blue, alphaValue);
             context.moveTo(0, 0 - starSettings.OuterRadius);
             
             if (starSettings.ScaleOptions.Count >= starSettings.ScaleOptions.Distance) {
@@ -139,6 +139,6 @@ function generateTooltips() {
     });
 }
 
-function getCorrectRGBA(red, blue, green, alphaPercent) {
-    return "rgba(" + red + ", " + blue + ", " + green + (alphaPercent == null ? ", 1" : ", 0." + alphaPercent) +")";
+function getCorrectRGBA(red, green, blue, alphaPercent) {
+    return "rgba(" + red + ", " + green + ", " + blue + (alphaPercent == null ? ", 1" : ", 0." + alphaPercent) +")";
 }
