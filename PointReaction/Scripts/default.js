@@ -1,6 +1,6 @@
 ﻿$(document).ready(() => {
     setBackgroundCanvas();
-    checkUserSettings();
+    generateTooltips();
 });
 
 function setBackgroundCanvas() {
@@ -129,7 +129,15 @@ function setBackgroundCanvas() {
     }
 }
 
-
-function checkUserSettings() {
-    /* Ajax, welcher mir die User-Einstellungen angibt */
+function generateTooltips() {
+    $(function () {
+        $('[title]').tooltip({
+            trigger: "hover",
+            boundary: "window",
+            html: true,
+            offset: "center",
+            placement: "right"
+        });
+    });
+    console.log("Done")
 }
