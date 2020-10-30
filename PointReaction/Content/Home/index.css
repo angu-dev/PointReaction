@@ -81,6 +81,7 @@
     background-position: center;
     transform: rotate(0deg);
     transition: 250ms linear;
+    border-radius:50%;
 }
 
     #settings-button:hover {
@@ -90,6 +91,96 @@
 
 #home-wrapper section#game-animation-area canvas#animation-canvas {
     z-index:-1;
+}
+
+#home-wrapper section {
+    border: 3px solid var(--light-color);
+    position:relative;
+}
+
+#user-information-button,
+#shop-button,
+#start-button,
+#leaderboard-button,
+.verify-button {
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+#home-wrapper section div.text-box p {
+    color: var(--light-color);
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+.verify-button {
+    height: 50px;
+    border: 3px solid var(--light-color);
+    padding: 10px 40px;
+    font-size: 20px;
+    color: var(--light-color);
+    font-weight: bold;
+    line-height: 25px;
+    position: relative;
+    background-color: var(--dark-color);
+    overflow: hidden;
+    transition: 250ms ease;
+}
+
+.verify-button:before {
+        content: "Weiterleiten";
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        left: -100%;
+        background: var(--light-color);
+        transition: 500ms ease-in-out;
+        color: var(--dark-color);
+        transition: 500ms ease-in-out;
+        line-height: 46px;
+        text-align:center;
+    }
+
+    .verify-button:after {
+        content: "";
+        position: absolute;
+        top: -28px;
+        height: 64px;
+        width: 50px;
+        right: 83%;
+        background: var(--light-color);
+        transition: 500ms ease-in-out;
+        transform: rotate(45deg);
+    }
+
+    .verify-button:hover:before {
+        left: 0;
+        transition: 500ms ease-in-out;
+    }
+
+    .verify-button:hover:after {
+        right: -17%;
+        transition: 500ms ease-in-out;
+    }
+
+    .verify-button:hover {
+        text-transform: uppercase;
+        text-decoration: none;
+        color: var(--light-color);
+    }
+
+#home-wrapper section div.button-box {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:absolute;
+    bottom:10px;
+    width:100%;
+}
+
+#home-wrapper section div.info-box {
+    padding: 7px 50px;
 }
 
 /* MEDIA */

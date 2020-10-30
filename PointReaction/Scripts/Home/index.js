@@ -1,5 +1,5 @@
 ﻿$(document).ready(() => {
-    generateAnimationCanvas();
+    //generateAnimationCanvas();
 });
 
 function generateAnimationCanvas() {
@@ -58,6 +58,7 @@ function generateAnimationCanvas() {
                 if (result != null) {
                     dots = result;
                 }
+                drawAnimation();
             }
         });
     }

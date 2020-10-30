@@ -7,16 +7,42 @@
 
 <div id="home-area">
     <div id="home-wrapper">
-        <section id="user-information-area">user information</section>
-        <section id="shop-area">shop</section>
+        <section id="user-information-area">
+            @Html.ActionLink("Mehr anzeigen", "Information", "User", new { area = "" }, new { id = "user-information-button" })
+        </section>
+        <section id="shop-area">
+            @Html.ActionLink("Shop öffnen", "Shop", "Game", new { area = "" }, new { id = "shop-button" })
+        </section>
         <section id="game-animation-area">
             <canvas id="animation-canvas"></canvas>
-            @Html.ActionLink(" ", "Settings", "User", new { area = "" }, new { id="settings-button", title="Einstellungen" })
+            @Html.ActionLink(" ", "Settings", "User", new { area = "" }, new { id = "settings-button", title = "Einstellungen" })
         </section>
-        <section id="game-start-area">start</section>
-        <section id="register-area">registrierung</section>
-        <section id="login-area">login</section>
-        <section id="leaderboard-area">leaderboard</section>
+        <section id="game-start-area">
+            @Html.ActionLink("Start", "Index", "Game", new { area = "" }, new { id = "start-button" })
+        </section>
+        <section id="register-area">
+            <div class="info-box">
+                <div class="text-box">
+                    <p>Speichere Spielfortschritte ab und ermögliche es Dir selbst, den Shop in vollem Umfang zu nutzen!</p>
+                </div>
+            </div>
+            <div class="button-box">
+                @Html.ActionLink("Registrieren", "Register", "Verify", new { area = "" }, new { @class = "verify-button" })
+            </div>
+        </section>
+        <section id="login-area">
+            <div class="info-box">
+                <div class="text-box">
+                    <p>Lade deinen Spielstand und erweitere dein bereits erstelltes Konto um einzigartige Items!</p>
+                </div>
+            </div>
+            <div class="button-box">
+                @Html.ActionLink("Einloggen", "Login", "Verify", new { area = "" }, new { @class = "verify-button" })
+            </div>
+        </section>
+        <section id="leaderboard-area">
+            @Html.ActionLink("Mehr anzeigen", "Leaderboard", "Game", new { area = "" }, new { id = "leaderboard-button" })
+        </section>
     </div>
     <div id="made-by-area">AuP-Projekt | Andreas Gutmann, Pascal Brennich</div>
 </div>

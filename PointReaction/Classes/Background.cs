@@ -13,6 +13,8 @@ namespace PointReaction.Classes
         private int MINIMAL_BACKGROUND_HEIGHT = 0;
         private double MINIMAL_STARS_ALPHA_VALUE = 0.3;
         private double MAXIMAL_STARS_ALPHA_VALUE = 0.9;
+        private int MINIMAL_STARS_VALUE = -10;
+        private int MAXIMAL_STARS_VALUE = 20;
 
         private List<Star> _Stars = new List<Star>();
         private int _StarsCount = 0;
@@ -102,6 +104,16 @@ namespace PointReaction.Classes
 
                 double randomAlpha = Generator.RandomAlphaNumber(MINIMAL_STARS_ALPHA_VALUE, MAXIMAL_STARS_ALPHA_VALUE);
                 star.Color = new Color(255, 255, 255, randomAlpha);
+
+                int randomMinimalAlphaValueInt = Generator.RandomNumber((int)(MINIMAL_STARS_ALPHA_VALUE * 100), (int)(MAXIMAL_STARS_ALPHA_VALUE * 100) / 2);
+                int randomMaximalAlphaValueInt = Generator.RandomNumber(randomMinimalAlphaValueInt, (int)(MAXIMAL_STARS_ALPHA_VALUE * 100));
+                int randomAlphaCounterInt = Generator.RandomNumber(randomMinimalAlphaValueInt, randomMaximalAlphaValueInt);
+                star.ScaleAlpha = new Scale(randomMinimalAlphaValueInt, randomMaximalAlphaValueInt, randomAlphaCounterInt);
+
+                int randomMinimalStarsValue = Generator.RandomNumber(MINIMAL_STARS_VALUE, 0);
+                int randomMaximalStarsValue = Generator.RandomNumber(randomMinimalStarsValue, MAXIMAL_STARS_VALUE);
+                int randomStarsCounter = Generator.RandomNumber(randomMinimalStarsValue, randomMaximalStarsValue);
+                star.ScaleStar = new Scale(randomMinimalStarsValue, randomMaximalStarsValue, randomStarsCounter);
 
                 stars.Add(star);
             }

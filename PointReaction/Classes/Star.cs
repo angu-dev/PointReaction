@@ -34,6 +34,8 @@ namespace PointReaction.Classes
             set => SetInnerRadius(value);
         }
         public Color Color { get; set; }
+        public Scale ScaleStar { get; set; }
+        public Scale ScaleAlpha { get; set; }
 
         public Star(int positionX, int positionY) 
             : base (positionX, positionY)

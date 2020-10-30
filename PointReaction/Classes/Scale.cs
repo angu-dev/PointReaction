@@ -11,7 +11,7 @@ namespace PointReaction.Classes
         private int MAXIMAL_COOLDOWN = 10000;
 
         private bool _GoesUp = true;
-        private int _MinimumValue = 0;
+        private int _MinimalValue = 0;
         private int _MaximalValue = 0;
         private int _Counter = 0;
         private int _Cooldown = 0;
@@ -21,10 +21,10 @@ namespace PointReaction.Classes
             get => _GoesUp;
             set => SetGoesUp(value);
         }
-        public int MinimumValue
+        public int MinimalValue
         {
-            get => _MinimumValue;
-            set => SetMinimumValue(value);
+            get => _MinimalValue;
+            set => SetMinimalValue(value);
         }
         public int MaximalValue
         {
@@ -53,12 +53,12 @@ namespace PointReaction.Classes
         }
         public Scale(int minimalValue, int maximalValue)
         {
-            SetMinimumValue(minimalValue);
+            SetMinimalValue(minimalValue);
             SetMaximalValue(maximalValue);
         }
         public Scale(int minimalValue, int maximalValue, int counter)
         {
-            SetMinimumValue(minimalValue);
+            SetMinimalValue(minimalValue);
             SetMaximalValue(maximalValue);
             SetCounter(counter);
         }
@@ -67,9 +67,9 @@ namespace PointReaction.Classes
         {
             _GoesUp = goesUp;
         }
-        private void SetMinimumValue(int minimumValue)
+        private void SetMinimalValue(int minimalValue)
         {
-            _MinimumValue = minimumValue;
+            _MinimalValue = minimalValue;
         }
         private void SetMaximalValue(int maximalValue)
         {
@@ -77,7 +77,7 @@ namespace PointReaction.Classes
         }
         private void SetCounter(int counter)
         {
-            if (counter >= MinimumValue && counter <= MaximalValue)
+            if (counter >= MinimalValue && counter <= MaximalValue)
             {
                 _Counter = counter;
             }

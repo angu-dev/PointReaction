@@ -4,9 +4,13 @@
 });
 
 function setBackgroundCanvas() {
+    let currentInterval = null;
+
     let canvas = document.getElementById("background-canvas");
     let context = canvas.getContext("2d");
     let stars = [];
+
+    resizeBackground();
 
     function clearBackground() {
         context.clearRect(0, 0, canvas.width, canvas.height);
@@ -29,8 +33,6 @@ function setBackgroundCanvas() {
 
         if (changedSomething) {
             generateBackground();
-        } else {
-            getStars();
         }
     }
     function generateBackground() {
@@ -58,15 +60,21 @@ function setBackgroundCanvas() {
                 result = JSON.parse(result.d);
                 if (result != null) {
                     stars = result;
+                    drawBackground();
                 }
             }
         });
     }
     function drawBackground() {
-        for (let curStar of stars) {
-            strokeStar(curStar);
-        }
-
+        clearInterval(currentInterval);
+        currentInterval = setInterval(() => {
+            clearBackground();
+            for (let curStar of stars) {
+                strokeStar(curStar);
+                animateStar(curStar);
+            }
+        }, 62,5);
+        
         function strokeStar(star) {
             context.save();
             context.beginPath();
@@ -85,13 +93,54 @@ function setBackgroundCanvas() {
             context.fill();
             context.restore();
         }
-    }
+        function animateStar(star) {
+            if (star == stars[0]) console.log(star.Color.Alpha)
 
-    setInterval(() => {
-        clearBackground();
-        resizeBackground();
-        drawBackground();
-    }, 62.5);
+            scaleRadius();
+            scaleAlpha();
+
+            function scaleAlpha() {
+                if (star.ScaleAlpha.Counter >= star.ScaleAlpha.MaximalValue) {
+                    star.ScaleAlpha.GoesUp = false;
+                } else if (star.ScaleAlpha.Counter <= star.ScaleAlpha.MinimalValue) {
+                    star.ScaleAlpha.GoesUp = true;
+                }
+
+                switch (star.ScaleAlpha.GoesUp) {
+                    case false:
+                        star.Color.Alpha -= 0.01;
+                        star.ScaleAlpha.Counter--;
+                        break;
+                    case true:
+                    default:
+                        star.Color.Alpha += 0.01;
+                        star.ScaleAlpha.Counter++;
+                        break;
+                }
+            }
+            function scaleRadius() {
+                if (star.ScaleStar.Counter >= star.ScaleStar.MaximalValue) {
+                    star.ScaleStar.GoesUp = false;
+                } else if (star.ScaleStar.Counter <= star.ScaleStar.MinimalValue) {
+                    star.ScaleStar.GoesUp = true;
+                }
+
+                switch (star.ScaleStar.GoesUp) {
+                    case false:
+                        star.OuterRadius -= 0.05;
+                        star.InnerRadius -= 0.05;
+                        star.ScaleStar.Counter--;
+                        break;
+                    case true:
+                    default:
+                        star.OuterRadius += 0.05;
+                        star.InnerRadius += 0.05;
+                        star.ScaleStar.Counter++;
+                        break;
+                }
+            }
+        }
+    }
 }
 
 function generateTooltips() {
