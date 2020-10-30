@@ -9,134 +9,153 @@ using System.Text;
 
 namespace PointReaction.Classes
 {
-    public abstract class Game
+    public class Game
     {
-        public static List<Star> GenerateBackgroundStars(int starsCount, int maximalGameWidth, int maximalGameHeight)
-        {
-            List<Star> stars = new List<Star>();
-            
-            for (int currentValue = 0; currentValue < starsCount; currentValue++)
-            {
-                stars.Add(new Star()
-                {
-                    PositionX = Generator.GetRandomNumber(0, maximalGameWidth),
-                    PositionY = Generator.GetRandomNumber(0, maximalGameHeight),
-                    Spikes = Generator.GetRandomNumber(3, 7),
-                    OuterRadius = Generator.GetRandomNumber(2, 4),
-                    InnerRadius = Generator.GetRandomNumber(3, 4),
-                    ScaleOptions = new Scale()
-                    {
-                        Type = Generator.GetRandomNumber(0, 2),
-                        Value = (double)Generator.GetRandomNumber(0, 2) / 10,
-                        Distance = Generator.GetRandomNumber(2, 5),
-                        Count = Generator.GetRandomNumber(0, 4)
-                    },
-                    ColorOptions = new Color()
-                    {
-                        Red = 255,
-                        Green = 255,
-                        Blue = 255,
-                        AlphaPercent = Generator.GetRandomNumber(30, 90),
-                        ColorSettings = new Scale()
-                        {
-                            Type = Generator.GetRandomNumber(0, 2),
-                            Value = Generator.GetRandomNumber(1, 10)
-                        }
-                    }
-                });
-            }
+        private int MINIMAL_GAME_WIDTH = 0;
+        private int MINIMAL_GAME_HEIGHT = 0;
 
-            return stars;
+        private List<Dot> _Dots = new List<Dot>();
+        private int _DotsCount = 0;
+        private int _GameWidth = 0;
+        private int _GameHeight = 0;
+        private bool _IsGameNotAnimation = true;
+
+        public List<Dot> Dots
+        {
+            get => _Dots;
+            set => SetDots(value);
+        }
+        public int DotsCount
+        {
+            get => _DotsCount;
+            set => SetDotsCount(value);
+        }
+        public int GameWidth
+        {
+            get => _GameWidth;
+            set => SetGameWidth(value);
+        }
+        public int GameHeight
+        {
+            get => _GameHeight;
+            set => SetGameHeight(value);
+        }
+        public bool IsGameNotAnimation
+        {
+            get => _IsGameNotAnimation;
+            set => SetIsGameNotAnimation(value);
         }
 
-        public static List<Dot> GenerateAnimationDots(int dotsCount, int maximalGameWidth, int maximalGameHeight)
+        public Game(int gameWidth, int gameHeight)
         {
-            List<Dot> dots = new List<Dot>();
+            SetGameWidth(gameWidth);
+            SetGameHeight(gameHeight);
+            SetIsGameNotAnimation(true);
+            SetDotsCount(200);
+            GenerateDots();
+        }
+        public Game(int gameWidth, int gameHeight, bool isGameNotAnimation)
+        {
+            SetGameWidth(gameWidth);
+            SetGameHeight(gameHeight);
 
-            int smallestSize = maximalGameWidth <= maximalGameHeight ? maximalGameWidth : maximalGameHeight;
-
-            for (int currentValue = 0; currentValue < dotsCount; currentValue++)
+            if (isGameNotAnimation)
             {
-                int radius = Generator.GetRandomNumber(10, smallestSize / 4);
-                int positionX = Generator.GetRandomNumber(radius, maximalGameWidth - radius);
-                int positionY = Generator.GetRandomNumber(radius, maximalGameHeight - radius);
+                SetIsGameNotAnimation(true);
+                SetDotsCount(200);
+            } else
+            {
+                SetIsGameNotAnimation(false);
+                SetDotsCount(10);
+            }
 
-                for (int i = 0; i < dots.Count; i++)
+            GenerateDots();
+        }
+        public Game(int gameWidth, int gameHeight, bool isGameNotAnimation, int dotsCount)
+        {
+            SetGameWidth(gameWidth);
+            SetGameHeight(gameHeight);
+
+            if (isGameNotAnimation != false)
+            {
+                SetIsGameNotAnimation(true);
+                SetDotsCount(dotsCount);
+            }
+            else
+            {
+                SetIsGameNotAnimation(false);
+                SetDotsCount(dotsCount);
+            }
+
+            GenerateDots();
+        }
+
+        private void SetDots(List<Dot> dots) {
+            if (dots != null)
+            {
+                _Dots = dots;
+            }
+        }
+        private void SetGameWidth(int gameWidth)
+        {
+            if (gameWidth >= 0)
+            {
+                _GameWidth = gameWidth;
+            }
+        }
+        private void SetGameHeight(int gameHeight)
+        {
+            if (gameHeight >= 0)
+            {
+                _GameHeight = gameHeight;
+            }
+        }
+        private void SetDotsCount(int dotsCount)
+        {
+            if (dotsCount >= 0)
+            {
+                _DotsCount = dotsCount;
+            }
+        }
+        private void SetIsGameNotAnimation(bool isGameNotAnimation)
+        {
+            _IsGameNotAnimation = isGameNotAnimation;
+        }
+
+        private void GenerateDots()
+        {
+            List<Dot> dotList = new List<Dot>();
+
+            for (int newDotCounter = 0; newDotCounter < _DotsCount; newDotCounter++)
+            {
+                Dot dot = new Dot(0, 0);
+                dot.X = Generator.RandomNumber(dot.Radius, _GameWidth - dot.Radius);
+                dot.Y = Generator.RandomNumber(dot.Radius, _GameHeight - dot.Radius);
+
+                for (int existingDotCounter = 0; existingDotCounter < dotList.Count; existingDotCounter++)
                 {
-                    double distance = GetDistance(positionX, dots[i].PositionX, positionY, dots[i].PositionY);
-                    int sumRadius = dots[i].Radius + radius;
+                    double distance = Calculate.GetDistance(dot.X, dotList[existingDotCounter].X, dot.Y, dotList[existingDotCounter].Y);
+                    int sumRadius = dotList[existingDotCounter].Radius + dot.Radius;
+                                       
                     if (sumRadius > distance)
                     {
-                        radius = Generator.GetRandomNumber(10, smallestSize / 4);
-                        positionX = Generator.GetRandomNumber(radius, maximalGameWidth - radius);
-                        positionY = Generator.GetRandomNumber(radius, maximalGameHeight - radius);
-                        i = -1;
+                        dot.X = Generator.RandomNumber(dot.Radius, _GameWidth - dot.Radius);
+                        dot.Y = Generator.RandomNumber(dot.Radius, _GameHeight - dot.Radius);
+                        existingDotCounter = -1;
                     }
                 }
 
-                dots.Add(new Dot()
-                {
-                    Radius = radius,
-                    PositionX = positionX,
-                    PositionY = positionY,
-                    ColorOptions = new Color()
-                    {
-                        Red = 255 - dots.Count * 2,
-                        Green = dots.Count,
-                        Blue = dots.Count * 2,
-                    },
-                    ScaleOptions = new Scale()
-                    {
-                        Count = 0,
-                        Cooldown = Generator.GetRandomNumber(0, 1000)
-                    }
-                });
+                dot.Color = new Color(255, 0, 0);
+
+                dotList.Add(dot);
             }
 
-            return dots;
+            _Dots = dotList;
         }
 
-        public static double GetDistance(int x1, int x2, int y1, int y2)
+        public List<Dot> GetDots()
         {
-            return Math.Sqrt(Math.Pow(y1 - y2, 2) + Math.Pow(x1 - x2, 2));
+            return _Dots;
         }
-    }
-
-    public struct Dot
-    {
-        public int PositionX { get; set; }
-        public int PositionY { get; set; }
-        public int Radius { get; set; }
-        public Color ColorOptions { get; set; }
-        public Scale ScaleOptions { get; set; }
-    }
-
-    public struct Star
-    {
-        public int PositionX { get; set; }
-        public int PositionY { get; set; }
-        public int Spikes { get; set; }
-        public int OuterRadius { get; set; }
-        public int InnerRadius { get; set; }
-        public Scale ScaleOptions { get; set; }
-        public Color ColorOptions { get; set; }
-    }
-
-    public class Color
-    {
-        public int Red { get; set; }
-        public int Green { get; set; }
-        public int Blue { get; set; }
-        public int? AlphaPercent { get; set; }
-        public Scale ColorSettings { get; set; }
-    }
-
-    public class Scale
-    {
-        public int Type { get; set; }
-        public double Value { get; set; }
-        public int? Distance { get; set; }
-        public int? Count { get; set; }
-        public int? Cooldown { get; set; }
     }
 }

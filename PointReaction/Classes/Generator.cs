@@ -12,11 +12,15 @@ namespace PointReaction.Classes
 {
     public class Generator
     {
-        public static Random RandomNumber = new Random();
+        private static Random Random_Number = new Random();
 
-        public static int GetRandomNumber(int minimalValue, int maximalValue)
+        public static int RandomNumber(int minimalValue, int maximalValue)
         {
-            return RandomNumber.Next(minimalValue, maximalValue);
+            return Random_Number.Next(minimalValue, maximalValue + 1);
+        }
+        public static double RandomAlphaNumber(double minimalValue, double maximalValue)
+        {
+            return Random_Number.NextDouble() * (maximalValue - minimalValue) + minimalValue;
         }
     }
 }

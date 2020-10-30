@@ -124,7 +124,14 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Classes\Calculate.cs" />
+    <Compile Include="Classes\Color.cs" />
+    <Compile Include="Classes\Dot.cs" />
     <Compile Include="Classes\Game.cs" />
+    <Compile Include="Classes\Position.cs" />
+    <Compile Include="Classes\Scale.cs" />
+    <Compile Include="Classes\Star.cs" />
+    <Compile Include="Classes\Background.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -133,8 +140,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Game.svc.cs">
-      <DependentUpon>Game.svc</DependentUpon>
+    <Compile Include="Services\Home.svc.cs">
+      <DependentUpon>Home.svc</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -144,7 +151,6 @@
     <Content Include="Content\Home\Images\settings-icon.svg" />
     <Content Include="Content\Home\index.css" />
     <Content Include="Content\Images\favicon.svg" />
-    <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -152,7 +158,7 @@
     <Content Include="Scripts\default.js" />
     <Content Include="Scripts\Home\index.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
-    <Content Include="Services\Game.svc" />
+    <Content Include="Services\Home.svc" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

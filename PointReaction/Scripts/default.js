@@ -8,18 +8,10 @@ function setBackgroundCanvas() {
     let context = canvas.getContext("2d");
     let stars = [];
 
-    setInterval(() => {
-        clearBackgroundCanvas();
-        resizeBackgroundCanvas();
-
-        if (stars == null || stars.length == 0) {
-            getStars();
-        }
-
-        drawBackgroundCanvas();
-    }, 62.5)
-
-    function resizeBackgroundCanvas() {
+    function clearBackground() {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    function resizeBackground() {
         let body = $("body");
         let bHeight = body.height();
         let bWidth = body.width();
@@ -36,66 +28,57 @@ function setBackgroundCanvas() {
         }
 
         if (changedSomething) {
+            generateBackground();
+        } else {
             getStars();
         }
     }
-    
-    function drawBackgroundCanvas() {
+    function generateBackground() {
+        $.ajax({
+            url: "/Services/Home.svc/GenerateBackground",
+            method: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: {
+                backgroundWidth: context.canvas.width,
+                backgroundHeight: context.canvas.height
+            },
+            success: () => {
+                getStars();
+            }
+        });
+    }
+    function getStars() {
+        $.ajax({
+            url: "/Services/Home.svc/GetBackgroundStars",
+            method: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: (result) => {
+                result = JSON.parse(result.d);
+                if (result != null) {
+                    stars = result;
+                }
+            }
+        });
+    }
+    function drawBackground() {
         for (let curStar of stars) {
             strokeStar(curStar);
         }
 
-        function strokeStar(starSettings) {
+        function strokeStar(star) {
             context.save();
             context.beginPath();
-            context.translate(starSettings.PositionX, starSettings.PositionY);
+            context.translate(star.X, star.Y);
+            context.fillStyle = getCorrectRGBA(star.Color.Red, star.Color.Green, star.Color.Blue, star.Color.Alpha);
+            context.moveTo(0, -star.OuterRadius);
 
-            let alphaValue = starSettings.ColorOptions.AlphaPercent;
-
-            if (starSettings.ColorOptions.ColorSettings.Value + starSettings.ColorOptions.AlphaPercent >= 90) {
-                starSettings.ColorOptions.ColorSettings.Type = 1;
-            } else if (starSettings.ColorOptions.ColorSettings.Value + starSettings.ColorOptions.AlphaPercent <= 30) {
-                starSettings.ColorOptions.ColorSettings.Type = 0;
-            }
-
-            switch (starSettings.ColorOptions.ColorSettings.Type) {
-                case 0:
-                    starSettings.ColorOptions.AlphaPercent += starSettings.ColorOptions.ColorSettings.Value;
-                    break;
-                case 1:
-                default:
-                    starSettings.ColorOptions.AlphaPercent -= starSettings.ColorOptions.ColorSettings.Value;
-                    break;
-            }
-           
-            context.fillStyle = getCorrectRGBA(starSettings.ColorOptions.Red, starSettings.ColorOptions.Green, starSettings.ColorOptions.Blue, alphaValue);
-            context.moveTo(0, 0 - starSettings.OuterRadius);
-            
-            if (starSettings.ScaleOptions.Count >= starSettings.ScaleOptions.Distance) {
-                starSettings.ScaleOptions.Type = 1;
-            } else if (starSettings.ScaleOptions.Count <= 0) {
-                starSettings.ScaleOptions.Type = 0;
-            }
-
-            switch (starSettings.ScaleOptions.Type) {
-                case 0:
-                    starSettings.OuterRadius += starSettings.ScaleOptions.Value;
-                    starSettings.InnerRadius += starSettings.ScaleOptions.Value;
-                    starSettings.ScaleOptions.Count += 1;
-                    break;
-                case 1:
-                default:
-                    starSettings.OuterRadius -= starSettings.ScaleOptions.Value;
-                    starSettings.InnerRadius -= starSettings.ScaleOptions.Value;
-                    starSettings.ScaleOptions.Count -= 1;
-                    break;
-            }
-
-            for (var i = 0; i < starSettings.Spikes; i++) {
-                context.rotate(Math.PI /  starSettings.Spikes);
-                context.lineTo(0, 0 - (starSettings.OuterRadius * starSettings.InnerRadius));
-                context.rotate(Math.PI / starSettings.Spikes);
-                context.lineTo(0, 0 - starSettings.OuterRadius);
+            for (var i = 0; i < star.Spikes; i++) {
+                context.rotate(Math.PI /  star.Spikes);
+                context.lineTo(0, 0 - (star.OuterRadius * star.InnerRadius));
+                context.rotate(Math.PI / star.Spikes);
+                context.lineTo(0, 0 - star.OuterRadius);
             }
 
             context.closePath();
@@ -104,27 +87,11 @@ function setBackgroundCanvas() {
         }
     }
 
-    function getStars() {
-        $.ajax({
-            url: "/Services/Game.svc/GenerateBackgroundStars",
-            method: "GET",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            async: false,
-            data: {
-                starsCount: 200,
-                maximalGameWidth: context.canvas.width,
-                maximalGameHeight: context.canvas.height
-            },
-            success: (result) => {
-                stars = JSON.parse(result.d);
-            }
-        });
-    }
-
-    function clearBackgroundCanvas() {
-        context.clearRect(0, 0, canvas.width, canvas.height);
-    }
+    setInterval(() => {
+        clearBackground();
+        resizeBackground();
+        drawBackground();
+    }, 62.5);
 }
 
 function generateTooltips() {
@@ -139,6 +106,6 @@ function generateTooltips() {
     });
 }
 
-function getCorrectRGBA(red, green, blue, alphaPercent) {
-    return "rgba(" + red + ", " + green + ", " + blue + (alphaPercent == null ? ", 1" : ", 0." + alphaPercent) +")";
+function getCorrectRGBA(red, green, blue, alpha) {
+    return "rgba(" + red + ", " + green + ", " + blue + ", " + alpha +")";
 }

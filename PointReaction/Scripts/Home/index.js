@@ -5,20 +5,12 @@
 function generateAnimationCanvas() {
     let canvas = document.getElementById("animation-canvas");
     let context = canvas.getContext("2d");
-
     let dots = [];
-    setInterval(() => {
-        clearAnimationCanvas();
-        resizeAnimationCanvas();
 
-        if (dots == null || dots.length == 0) {
-            getAnimationDots();
-        }
-
-        drawAnimationCanvas();
-    }, 62.5)
-
-    function resizeAnimationCanvas() {
+    function clearAnimation() {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    function resizeAnimation() {
         let box = $("#game-animation-area");
         let bHeight = box.height();
         let bWidth = box.width();
@@ -35,44 +27,57 @@ function generateAnimationCanvas() {
         }
 
         if (changedSomething) {
-            getAnimationDots();
+            generateAnimation();
+        } else {
+            getDots();
         }
     }
-
-    function drawAnimationCanvas() {
+    function generateAnimation() {
+        $.ajax({
+            url: "/Services/Home.svc/GenerateAnimation",
+            method: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: {
+                animationWidth: context.canvas.width,
+                animationHeight: context.canvas.height
+            },
+            success: () => {
+                getDots();
+            }
+        });
+    }
+    function getDots() {
+        $.ajax({
+            url: "/Services/Home.svc/GetAnimation",
+            method: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: (result) => {
+                result = JSON.parse(result.d);
+                if (result != null) {
+                    dots = result;
+                }
+            }
+        });
+    }
+    function drawAnimation() {
         for (let curDot of dots) {
             strokeDot(curDot);
         }
 
-        function strokeDot(dotSettings) {
+        function strokeDot(dot) {
             context.beginPath();
-            context.arc(dotSettings.PositionX, dotSettings.PositionY, dotSettings.Radius, 0, 2 * Math.PI);
+            context.arc(dot.X, dot.Y, dot.Radius, 0, 2 * Math.PI);
             context.stroke();
-            context.fillStyle = getCorrectRGBA(dotSettings.ColorOptions.Red, dotSettings.ColorOptions.Green, dotSettings.ColorOptions.Blue);
+            context.fillStyle = getCorrectRGBA(dot.Color.Red, dot.Color.Green, dot.Color.Blue, dot.Color.Alpha);
             context.fill();
         }
     }
 
-    function getAnimationDots() {
-        $.ajax({
-            url: "/Services/Game.svc/GenerateAnimationDots",
-            method: "GET",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            async: false,
-            data: {
-                dotsCount: 50,
-                maximalGameWidth: context.canvas.width,
-                maximalGameHeight: context.canvas.height
-            },
-            success: (result) => {
-                dots = JSON.parse(result.d);
-                console.log(dots)
-            }
-        });
-    }
-
-    function clearAnimationCanvas() {
-        context.clearRect(0, 0, canvas.width, canvas.height);
-    }
+    setInterval(() => {
+        clearAnimation();
+        resizeAnimation();
+        drawAnimation();
+    }, 62.5)
 }
