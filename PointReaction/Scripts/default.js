@@ -69,11 +69,12 @@ function setBackgroundCanvas() {
         clearInterval(currentInterval);
         currentInterval = setInterval(() => {
             clearBackground();
+            resizeBackground();
             for (let curStar of stars) {
                 strokeStar(curStar);
                 animateStar(curStar);
             }
-        }, 62,5);
+        }, 62.5);
         
         function strokeStar(star) {
             context.save();
@@ -94,8 +95,6 @@ function setBackgroundCanvas() {
             context.restore();
         }
         function animateStar(star) {
-            if (star == stars[0]) console.log(star.Color.Alpha)
-
             scaleRadius();
             scaleAlpha();
 

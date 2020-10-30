@@ -1,11 +1,15 @@
 ﻿$(document).ready(() => {
-    //generateAnimationCanvas();
+    generateAnimationCanvas();
 });
 
 function generateAnimationCanvas() {
+    let currentInverval = null;
+
     let canvas = document.getElementById("animation-canvas");
     let context = canvas.getContext("2d");
     let dots = [];
+
+    resizeAnimation();
 
     function clearAnimation() {
         context.clearRect(0, 0, canvas.width, canvas.height);
@@ -54,18 +58,23 @@ function generateAnimationCanvas() {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: (result) => {
-                result = JSON.parse(result.d);
+                result = JSON.parse(result.d); 
                 if (result != null) {
                     dots = result;
+                    drawAnimation();
                 }
-                drawAnimation();
             }
         });
     }
     function drawAnimation() {
-        for (let curDot of dots) {
-            strokeDot(curDot);
-        }
+        clearInterval(currentInverval);
+        currentInverval = setInterval(() => {
+            clearAnimation();
+            resizeAnimation();
+            for (let curDot of dots) {
+                strokeDot(curDot);
+            }
+        }, 62.5);
 
         function strokeDot(dot) {
             context.beginPath();
@@ -75,10 +84,4 @@ function generateAnimationCanvas() {
             context.fill();
         }
     }
-
-    setInterval(() => {
-        clearAnimation();
-        resizeAnimation();
-        drawAnimation();
-    }, 62.5)
 }
