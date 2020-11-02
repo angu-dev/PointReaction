@@ -11,6 +11,9 @@ namespace PointReaction.Classes
 {
     public class Game
     {
+        private int DEFAULT_MAXIMAL_FAILURE_TRIES = 50000;
+        private int DEFAULT_GAME_DOT_COUNT = 30;
+        private int DEFAULT_ANIMATION_DOT_COUNT = 20;
         private int MINIMAL_GAME_WIDTH = 0;
         private int MINIMAL_GAME_HEIGHT = 0;
 
@@ -51,7 +54,7 @@ namespace PointReaction.Classes
             SetGameWidth(gameWidth);
             SetGameHeight(gameHeight);
             SetIsGameNotAnimation(true);
-            SetDotsCount(200);
+            SetDotsCount(DEFAULT_GAME_DOT_COUNT);
             GenerateDots();
         }
         public Game(int gameWidth, int gameHeight, bool isGameNotAnimation)
@@ -62,11 +65,11 @@ namespace PointReaction.Classes
             if (isGameNotAnimation)
             {
                 SetIsGameNotAnimation(true);
-                SetDotsCount(200);
+                SetDotsCount(DEFAULT_GAME_DOT_COUNT);
             } else
             {
                 SetIsGameNotAnimation(false);
-                SetDotsCount(10);
+                SetDotsCount(DEFAULT_ANIMATION_DOT_COUNT);
             }
 
             GenerateDots();
@@ -98,14 +101,14 @@ namespace PointReaction.Classes
         }
         private void SetGameWidth(int gameWidth)
         {
-            if (gameWidth >= 0)
+            if (gameWidth >= MINIMAL_GAME_WIDTH)
             {
                 _GameWidth = gameWidth;
             }
         }
         private void SetGameHeight(int gameHeight)
         {
-            if (gameHeight >= 0)
+            if (gameHeight >= MINIMAL_GAME_HEIGHT)
             {
                 _GameHeight = gameHeight;
             }
@@ -125,6 +128,7 @@ namespace PointReaction.Classes
         private void GenerateDots()
         {
             List<Dot> dotList = new List<Dot>();
+            int dotFailCount = 0;
 
             for (int newDotCounter = 0; newDotCounter < _DotsCount; newDotCounter++)
             {
@@ -136,16 +140,23 @@ namespace PointReaction.Classes
                 {
                     double distance = Calculate.GetDistance(dot.X, dotList[existingDotCounter].X, dot.Y, dotList[existingDotCounter].Y);
                     int sumRadius = dotList[existingDotCounter].Radius + dot.Radius;
-                                       
+
                     if (sumRadius > distance)
                     {
+                        dot.Radius = Generator.RandomNumber(dot.MINIMAL_RADIUS, dot.MAXIMAL_RADIUS);
                         dot.X = Generator.RandomNumber(dot.Radius, _GameWidth - dot.Radius);
                         dot.Y = Generator.RandomNumber(dot.Radius, _GameHeight - dot.Radius);
                         existingDotCounter = -1;
+                        dotFailCount++;
                     }
                 }
 
-                dot.Color = new Color(255, 0, 0);
+                if (dotFailCount >= DEFAULT_MAXIMAL_FAILURE_TRIES)
+                {
+                    break;
+                }
+
+                dot.Color = new Color(255 - dotList.Count, 0 + (dotList.Count * 2), 0);
 
                 dotList.Add(dot);
             }

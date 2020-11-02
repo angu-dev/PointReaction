@@ -10,7 +10,8 @@ namespace PointReaction
             bundles.Add(new ScriptBundle("~/bundles/librarys").Include(
                 "~/Scripts/jquery-3.4.1.min.js",
                 "~/Scripts/bootstrap.min.js",
-                "~/Scripts/bootstrap.bundle.min.js"
+                "~/Scripts/bootstrap.bundle.min.js",
+                "~/Scripts/datatables-1.10.22.min.js"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/defaultScripts").Include(
@@ -19,6 +20,7 @@ namespace PointReaction
 
             bundles.Add(new StyleBundle("~/bundles/defaultStyles").Include(
                 "~/Content/bootstrap.min.css",
+                "~/Content/datatables-1.10.22.min.css",
                 "~/Content/default.css"
             ));
         }

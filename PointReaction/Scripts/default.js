@@ -16,9 +16,9 @@ function setBackgroundCanvas() {
         context.clearRect(0, 0, canvas.width, canvas.height);
     }
     function resizeBackground() {
-        let body = $("body");
-        let bHeight = body.height();
-        let bWidth = body.width();
+        let box = $("body");
+        let bHeight = Math.floor(box.height());
+        let bWidth = Math.floor(box.width());
         let changedSomething = false;
 
         if (context.canvas.width != bWidth) {

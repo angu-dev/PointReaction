@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="button-box">
-                @Html.ActionLink("Registrieren", "Register", "Verify", new { area = "" }, new { @class = "verify-button" })
+                @Html.ActionLink("Registrieren", "Register", "Verify", new { area = "" }, new { @class = "custom-button" })
             </div>
         </section>
         <section id="login-area">
@@ -37,11 +37,20 @@
                 </div>
             </div>
             <div class="button-box">
-                @Html.ActionLink("Einloggen", "Login", "Verify", new { area = "" }, new { @class = "verify-button" })
+                @Html.ActionLink("Einloggen", "Login", "Verify", new { area = "" }, new { @class = "custom-button" })
             </div>
         </section>
         <section id="leaderboard-area">
-            @Html.ActionLink("Mehr anzeigen", "Leaderboard", "Game", new { area = "" }, new { id = "leaderboard-button" })
+            <h4>Rangliste</h4>
+            <div class="text-box">
+                <p>Top <b>5</b> Spieler</p>
+            </div>
+            <div class="leaderboard-box">
+                <table id="leaderboard-table"></table>
+            </div>
+            <div class="button-box">
+                @Html.ActionLink("Mehr anzeigen", "Leaderboard", "Game", new { area = "" }, new { @class = "custom-button" })
+            </div>
         </section>
     </div>
     <div id="made-by-area">AuP-Projekt | Andreas Gutmann, Pascal Brennich</div>

@@ -7,8 +7,8 @@ namespace PointReaction.Classes
 {
     public class Dot : Position
     {
-        private int MINIMAL_RADIUS = 10;
-        private int MAXIMAL_RADIUS = 80;
+        public int MINIMAL_RADIUS = 10;
+        public int MAXIMAL_RADIUS = 80;
 
         private int _Radius = 0;
 
