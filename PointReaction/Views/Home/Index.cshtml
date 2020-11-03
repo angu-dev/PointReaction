@@ -2,23 +2,35 @@
     ViewBag.Title = "Startseite";
 }
 
-<link rel="stylesheet" href="~/Content/Home/index.css" type="text/css" />
-<script src="~/Scripts/Home/index.js"></script>
+@section scripts {
+    <script src="~/Scripts/Home/index.js"></script>
+}
+
+@section styles {
+    <link rel="stylesheet" href="~/Content/Home/index.css" type="text/css" />    
+}
+
 
 <div id="home-area">
     <div id="home-wrapper">
         <section id="user-information-area">
-            @Html.ActionLink("Mehr anzeigen", "Information", "User", new { area = "" }, new { id = "user-information-button" })
+            <div class="text-box">
+                @Html.ActionLink("Mehr anzeigen", "Information", "User", new { area = "" }, new { @id = "user-information-button", @class = "custom-button" })
+            </div>
         </section>
         <section id="shop-area">
-            @Html.ActionLink("Shop öffnen", "Shop", "Game", new { area = "" }, new { id = "shop-button" })
+            <div class="text-box">
+                @Html.ActionLink("Shop öffnen", "Shop", "Game", new { area = "" }, new { @id = "shop-button", @class = "custom-button" })
+            </div>
         </section>
         <section id="game-animation-area">
             <canvas id="animation-canvas"></canvas>
-            @Html.ActionLink(" ", "Settings", "User", new { area = "" }, new { id = "settings-button", title = "Einstellungen" })
+            @Html.ActionLink(" ", "Settings", "User", new { area = "" }, new { @id = "settings-button", @title = "Einstellungen" })
         </section>
         <section id="game-start-area">
-            @Html.ActionLink("Start", "Index", "Game", new { area = "" }, new { id = "start-button" })
+            <div class="button-box">
+                @Html.ActionLink("Spiel starten", "Index", "Game", new { area = "" }, new { @id = "start-game-button", @class = "custom-button" })
+            </div>
         </section>
         <section id="register-area">
             <div class="info-box">
@@ -27,7 +39,7 @@
                 </div>
             </div>
             <div class="button-box">
-                @Html.ActionLink("Registrieren", "Register", "Verify", new { area = "" }, new { @class = "custom-button" })
+                @Html.ActionLink("Registrieren", "Register", "Verify", new { area = "" }, new { @id = "register-button", @class = "custom-button" })
             </div>
         </section>
         <section id="login-area">
@@ -37,7 +49,7 @@
                 </div>
             </div>
             <div class="button-box">
-                @Html.ActionLink("Einloggen", "Login", "Verify", new { area = "" }, new { @class = "custom-button" })
+                @Html.ActionLink("Einloggen", "Login", "Verify", new { area = "" }, new { @id = "login-button", @class = "custom-button" })
             </div>
         </section>
         <section id="leaderboard-area">
@@ -49,7 +61,7 @@
                 <table id="leaderboard-table"></table>
             </div>
             <div class="button-box">
-                @Html.ActionLink("Mehr anzeigen", "Leaderboard", "Game", new { area = "" }, new { @class = "custom-button" })
+                @Html.ActionLink("Mehr anzeigen", "Leaderboard", "Game", new { area = "" }, new { @id = "leaderboard-button", @class = "custom-button" })
             </div>
         </section>
     </div>

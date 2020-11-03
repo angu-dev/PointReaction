@@ -49,3 +49,85 @@ body {
         position: absolute;
         z-index: -1;
     }
+
+.button-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+}
+
+.custom-button {
+    text-transform: uppercase;
+    text-decoration: none;
+    width: 200px;
+    height: 50px;
+    border: 3px solid var(--light-color);
+    padding: 10px 40px;
+    font-size: 20px;
+    color: var(--light-color);
+    font-weight: bold;
+    line-height: 25px;
+    position: relative;
+    background-color: var(--dark-color);
+    transition: 5s ease-in-out;
+    text-align: center;
+    overflow:hidden;
+}
+
+    .custom-button::before {
+        content: "Weiterleiten";
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        left: -100%;
+        background: var(--light-color);
+        transition: 500ms ease-in-out;
+        color: var(--dark-color);
+        transition: 500ms ease-in-out;
+        line-height: 46px;
+        text-align: center;
+    }
+
+    .custom-button::after {
+        content: "";
+        position: absolute;
+        top: -28px;
+        height: 64px;
+        width: 50px;
+        right: 85%;
+        background: var(--light-color);
+        transition: 500ms ease-in-out;
+        transform: rotate(45deg);
+    }
+
+    .custom-button:hover::before {
+        left: 0;
+        transition: 500ms ease-in-out;
+    }
+
+    .custom-button:hover::after {
+        right: -15%;
+        transition: 500ms ease-in-out;
+    }
+
+    .custom-button:hover {
+        text-transform: uppercase;
+        text-decoration: none;
+        color: var(--light-color);
+    }
+
+#fixed-start-game-button {
+    height: 50px;
+    width: 200px;
+    position: fixed;
+    bottom: 50px;
+    left: 20px;
+}
+
+#fixed-start-game-button::before {
+    content: "Starten";
+}

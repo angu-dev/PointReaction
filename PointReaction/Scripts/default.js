@@ -1,5 +1,8 @@
-﻿$(document).ready(() => {
+﻿let FIXED_START_GAME_BUTTON_OFFSET = 1000;
+
+$(document).ready(() => {
     setBackgroundCanvas();
+    generateFixedStartButton();
     generateTooltips();
 });
 
@@ -156,4 +159,46 @@ function generateTooltips() {
 
 function getCorrectRGBA(red, green, blue, alpha) {
     return "rgba(" + red + ", " + green + ", " + blue + ", " + alpha +")";
+}
+
+function generateFixedStartButton() {
+    let itemID = "#fixed-start-game-button";
+
+    checkForButton();
+    $(document).on("scroll.fixedStartButton", () => {
+        checkForButton();
+    });
+
+    function checkForButton() {
+        let offsetY = $(document).scrollTop();
+
+        if (offsetY >= FIXED_START_GAME_BUTTON_OFFSET) {
+            if ($(itemID)[0] == undefined) {
+                generateItem();
+            }
+        } else {
+            deleteItem();
+        }
+
+        function generateItem() {
+            let item = $("<div>")
+                .attr({ "id": itemID.slice(1) })
+                .css("display", "none");
+            let box = $("<div>").addClass("button-box");
+            let link = $("<a>").addClass("custom-button").attr({
+                "href": "/Game",
+                "id":"fixed-start-game-button"
+            }).text("Spiel starten");
+            $("body").append(item.append(box.append(link)));
+            item.fadeIn(500);
+        }
+
+        function deleteItem() {
+            let item = $(itemID);
+            item.fadeOut(500);
+            setTimeout(() => {
+                item.remove();
+            }, 500);
+        }
+    }
 }
