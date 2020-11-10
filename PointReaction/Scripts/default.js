@@ -4,6 +4,7 @@ $(document).ready(() => {
     setBackgroundCanvas();
     generateFixedStartButton();
     generateTooltips();
+    checkEmptyTable();
 });
 
 function setBackgroundCanvas() {
@@ -146,14 +147,12 @@ function setBackgroundCanvas() {
 }
 
 function generateTooltips() {
-    $(function () {
-        $('[title]').tooltip({
-            trigger: "hover",
-            boundary: "window",
-            html: true,
-            offset: "center",
-            placement: "right"
-        });
+    $('[title]').tooltip({
+        trigger: "hover",
+        boundary: "window",
+        html: true,
+        offset: "center",
+        placement: "right"
     });
 }
 
@@ -201,4 +200,17 @@ function generateFixedStartButton() {
             }, 500);
         }
     }
+}
+
+function checkEmptyTable() {
+    $('table').on('order.dt search.dt', function (e) {
+        $(e.currentTarget).find("dataTables_empty").html("Keine Test vorhanden");
+    });
+}
+
+function formatNumber(number) {
+    if (number == null) {
+        return null;
+    }
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }

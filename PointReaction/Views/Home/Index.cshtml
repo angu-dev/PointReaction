@@ -14,12 +14,12 @@
 <div id="home-area">
     <div id="home-wrapper">
         <section id="user-information-area">
-            <div class="text-box">
+            <div class="button-box">
                 @Html.ActionLink("Mehr anzeigen", "Information", "User", new { area = "" }, new { @id = "user-information-button", @class = "custom-button" })
             </div>
         </section>
         <section id="shop-area">
-            <div class="text-box">
+            <div class="button-box">
                 @Html.ActionLink("Shop öffnen", "Shop", "Game", new { area = "" }, new { @id = "shop-button", @class = "custom-button" })
             </div>
         </section>
@@ -55,7 +55,7 @@
         <section id="leaderboard-area">
             <h4>Rangliste</h4>
             <div class="text-box">
-                <p>Top <b>5</b> Spieler</p>
+                <p>Die Top <b>5</b> Spieler mit den meisten Punkten</p>
             </div>
             <div class="leaderboard-box">
                 <table id="leaderboard-table"></table>

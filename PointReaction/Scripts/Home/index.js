@@ -88,6 +88,9 @@ function generateAnimationCanvas() {
 }
 
 function loadLeaderboard() {
+    let MAX_USERNAME_LENGTH = 15;
+    let MAX_POINTS_LENGTH = 20;
+
     let table = $("#leaderboard-table");
 
     $.ajax({
@@ -95,9 +98,6 @@ function loadLeaderboard() {
         method: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        data: {
-            getItems: 5
-        },
         success: (result) => {
             result = JSON.parse(result.d);
             if (result != null) {
@@ -108,18 +108,33 @@ function loadLeaderboard() {
                         {
                             data: "Username",
                             title: "Username",
-                            render: (data) => data == null ? "-" : data
+                            render: (data) => {
+                                if (data == null) {
+                                    return "-";
+                                } else if (data.length > MAX_USERNAME_LENGTH) {
+                                    return "<div title='" + data + "'>" + data.slice(0, MAX_USERNAME_LENGTH) + "...</div>";
+                                }
+                                return data;
+                            }
                         },
                         {
                             data: "Points",
                             title: "Punkte",
-                            render: (data) => data == null ? "-" : data
+                            render: (data) => {
+                                data = formatNumber(data);
+                                if (data == null) {
+                                    return "-";
+                                } else if (data.length > MAX_POINTS_LENGTH) {
+                                    return "<div title='" + data + "'>" + data.slice(0, MAX_POINTS_LENGTH) + "...</div>";
+                                }
+                                return data;
+                            }
                         }
                     ],
-                    data: result
+                    data: result,
                 });
+                generateTooltips();
             }
-            table.find("td.dataTables_empty").html("Keine Daten vorhanden")
         }
     });
 }

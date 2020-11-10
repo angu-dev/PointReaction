@@ -2,4 +2,17 @@
     ViewBag.Title = "Rangliste";
 }
 
-<div>Leaderboard | Game</div>
+@section styles {
+    <link href="~/Content/Game/leaderboard.css" rel="stylesheet" />
+}
+
+@section scripts {
+    <script src="~/Scripts/Game/leaderboard.js"></script>
+}
+
+<section id="leaderboard-box" class="custom-box">
+    <h1>Rangliste</h1>
+    <div class="table-box">
+        <table id="full-leaderboard-table"></table>
+    </div>
+</section>

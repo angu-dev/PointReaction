@@ -176,6 +176,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\datatables-1.10.22.min.css" />
     <Content Include="Content\default.css" />
+    <Content Include="Content\Game\leaderboard.css" />
     <Content Include="Content\Home\Images\settings-icon.svg" />
     <Content Include="Content\Home\index.css" />
     <Content Include="Content\Images\DataTables\sort_asc.png" />
@@ -200,6 +201,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\datatables-1.10.22.min.js" />
     <Content Include="Scripts\default.js" />
+    <Content Include="Scripts\Game\leaderboard.js" />
     <Content Include="Scripts\Home\index.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Services\Game.svc" />
@@ -240,6 +242,7 @@
     <Content Include="Views\Game\Shop.cshtml" />
     <Content Include="Views\User\Information.cshtml" />
     <Content Include="Views\User\Settings.cshtml" />
+    <Content Include="Content\Datatable\German.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Backend\Backend.csproj">

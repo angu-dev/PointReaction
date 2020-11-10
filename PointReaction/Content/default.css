@@ -9,12 +9,11 @@
     padding: 0;
     font-family: 'Agency FB';
     letter-spacing: 0.5px;
-    color: var(--dark-color);
+    color: var(--light-color);
 }
 
 ::selection {
-    color: var(--light-color); 
-    background-color: var(--background);
+    background-color: var(--light-color);
 }
 
 ::-webkit-scrollbar {
@@ -130,4 +129,66 @@ body {
 
 #fixed-start-game-button::before {
     content: "Starten";
+}
+
+.custom-box {
+    width: 400px;
+    color: #fff;
+    border: 4px solid #000;
+    position: relative;
+    background: rgba(0,0,0,.6);
+}
+
+table {
+    table-layout: fixed;
+}
+
+table thead tr th {
+    background-image: none;
+    color: var(--light-color);
+    text-align: center;
+    background-color: #252525;
+    border: none;
+    border-bottom: 1px solid #111 !important;
+    border-right: 1px solid #111;
+    background-blend-mode: soft-light;
+}
+
+table thead tr th.sorting_asc,
+table thead tr th.sorting_desc {
+    background-blend-mode: normal;
+}
+
+table thead tr th:last-child {
+    border-right:none;
+}
+
+table tbody tr {
+    background-color: #181818 !important;
+}
+
+    table tbody tr td {
+        text-align: center;
+        color: var(--light-color);
+        padding: 5px 10px;
+        overflow:hidden;
+    }
+
+.tooltip-inner {
+    max-width: 400px;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+    position: relative;
+    -webkit-appearance: none;
+    height: 20px;
+    width: 20px;
+    top: 1px;
+    right: -5px;
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/OOjs_UI_icon_close.svg/600px-OOjs_UI_icon_close.svg.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    filter: invert(1);
+    cursor: pointer;
 }
